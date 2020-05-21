@@ -1,5 +1,6 @@
 package utils;
 
+import arbolBinario.ArbolBinario;
 import arbolGeneral.ArbolGeneral;
 import listaGenerica.*;
 
@@ -119,6 +120,72 @@ public class Aleatorio {
             lista.agregarFinal(generarString(4 ,8, upper));
         }
         return lista;
+    }
+
+    //Genera un arbol de int de altura maximo pasado por parametros, los posible valores de sus nodos estan
+    //dentro del rango pasado por parametro, se puede especificar si es un arbol lleno, los valores se pueden repetir
+    public static ArbolBinario<Integer> generarArbolBinarioInt(int altura, int inicio, int fin, boolean lleno){
+        if(altura == 0){
+            return new ArbolBinario<>(generarInt(inicio, fin));
+        }
+        ArbolBinario<Integer> arbol = new ArbolBinario<>(generarInt(inicio, fin));
+        int grado = lleno? 2 : generarInt(4);
+        if(grado >= 3){
+            arbol.agregarHijoIzquierdo(generarArbolBinarioInt(altura-1, inicio, fin, lleno));
+            arbol.agregarHijoDerecho(generarArbolBinarioInt(altura-1, inicio, fin, lleno));
+        }else if(grado >= 1){
+            int numero = generarInt(2);
+            if(numero == 0){
+                arbol.agregarHijoIzquierdo(generarArbolBinarioInt(altura-1, inicio, fin, lleno));
+            }else{
+                arbol.agregarHijoDerecho(generarArbolBinarioInt(altura-1, inicio, fin, lleno));
+            }
+        }
+        return arbol;
+    }
+
+    //Genera un arbol de char de altura maximo pasado por parametros, los posible valores de sus nodos estan
+    //dentro del rango pasado por parametro, se puede especificar si es un arbol lleno, los valores se pueden repetir
+    public static ArbolBinario<Character> generarArbolBinarioChar(int altura, char inicio, char fin, boolean lleno){
+        if(altura == 0){
+            return new ArbolBinario<>(generarChar(inicio, fin));
+        }
+        ArbolBinario<Character> arbol = new ArbolBinario<>(generarChar(inicio, fin));
+        int grado = lleno? 2 : generarInt(4);
+        if(grado >= 3){
+            arbol.agregarHijoIzquierdo(generarArbolBinarioChar(altura-1, inicio, fin, lleno));
+            arbol.agregarHijoDerecho(generarArbolBinarioChar(altura-1, inicio, fin, lleno));
+        }else if(grado >= 1){
+            int numero = generarInt(2);
+            if(numero == 0){
+                arbol.agregarHijoIzquierdo(generarArbolBinarioChar(altura-1, inicio, fin, lleno));
+            }else{
+                arbol.agregarHijoDerecho(generarArbolBinarioChar(altura-1, inicio, fin, lleno));
+            }
+        }
+        return arbol;
+    }
+
+    //Genera un arbol de string de altura maximo pasado por parametros, los posible valores de sus nodos estan
+    //dentro de la lista pasada por parametro, se puede especificar si es un arbol lleno, los valores se pueden repetir
+    public static ArbolBinario<String> generarArbolBinarioString(int altura, ListaGenerica<String> lista, boolean lleno){
+        if(altura == 0){
+            return new ArbolBinario<>(lista.elemento(generarInt(1, lista.tamanio())));
+        }
+        ArbolBinario<String> arbol = new ArbolBinario<>(lista.elemento(generarInt(1, lista.tamanio())));
+        int grado = lleno? 2 : generarInt(4);
+        if(grado >= 3){
+            arbol.agregarHijoIzquierdo(generarArbolBinarioString(altura-1, lista, lleno));
+            arbol.agregarHijoDerecho(generarArbolBinarioString(altura-1, lista, lleno));
+        }else if(grado >= 1){
+            int numero = generarInt(2);
+            if(numero == 0){
+                arbol.agregarHijoIzquierdo(generarArbolBinarioString(altura-1, lista, lleno));
+            }else{
+                arbol.agregarHijoDerecho(generarArbolBinarioString(altura-1, lista, lleno));
+            }
+        }
+        return arbol;
     }
 
     //Genera un arbol de int de altura, grado maximo pasado por parametros, los posible valores de sus nodos estan
